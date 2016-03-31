@@ -18,13 +18,30 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/api/v1/get/{contract}/{id}", name="retrieve_data")
+     * @Route("/api/v1/get/{contract}/{id}", name="retrieve_data_by_contract_and_id")
      */
-    public function retrieveDataAction($contract, $id)
+    public function retrieveDataByContractAndIdAction($contract, $id)
     {
         $jcdecaux = $this->get('app.jcdecaux');
 
-        $data_station = $jcdecaux->getData($contract, $id);
+        $data_station = $jcdecaux->getDataByContractAndId($contract, $id);
+
+        $response = new JsonResponse();
+        $response->setData([
+            'response' => $jcdecaux->pushToFirebase($data_station)
+        ]);
+
+        return $response;
+    }
+
+    /**
+     * @Route("/api/v1/get/{contract}", name="retrieve_data_by_contract")
+     */
+    public function retrieveDataByContractAction($contract)
+    {
+        $jcdecaux = $this->get('app.jcdecaux');
+
+        $data_station = $jcdecaux->getDataByContract($contract);
 
         $response = new JsonResponse();
         $response->setData([
