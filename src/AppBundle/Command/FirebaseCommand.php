@@ -37,10 +37,11 @@ class FirebaseCommand extends ContainerAwareCommand
 
         $table = new Table($output);
         $table
-            ->setHeaders(['Town', 'Day', 'Hour', 'Available Bike Stands', 'Available Bike'])
+            ->setHeaders(['Town', 'Name' ,'Day', 'Hour', 'Available Bike Stands', 'Available Bike'])
             ->setRows([
                 [
                     $response['resume']['contract'],
+                    $response['resume']['name'],
                     $days[$response['resume']['day']],
                     $response['resume']['hour'],
                     $response['resume']['available_bike_stands'],
