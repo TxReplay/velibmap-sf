@@ -47,12 +47,12 @@ class JcdecauxService {
 
         $timestamp = substr($data->last_update, 0, -3);
 
-        $station_now = $station->getReference(date('D', $timestamp) .'/'. date('H', $timestamp) .'/'. $timestamp);
+        $station_now = $station->getReference(date('N', $timestamp) .'/'. date('H', $timestamp) .'/'. $timestamp);
 
         $station_now->set([
             'available_bike_stands' => $data->available_bike_stands,
             'available_bikes' => $data->available_bikes,
-            'timestamp' => $timestamp
+            'timestamp' => date('Y-m-d H:i:s',$timestamp)
         ]);
 
         return $station_now->getData();
